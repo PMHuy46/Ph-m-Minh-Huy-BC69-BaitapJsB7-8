@@ -71,7 +71,11 @@ document.querySelector("#timMinDuong").onclick = function () {
 
 // số chắn cuối mảng
 document.querySelector("#timSoChan").onclick = function () {
-    let newArr = arrTongHop.reverse();
+    let newArr = arrTongHop.reverse().filter(item => {
+        if (item - item.toFixed(0) == 0) {
+            return item
+        }
+    });
     let kq = newArr.find(item => item % 2 == 0)
 
     if (!kq) {
@@ -86,7 +90,7 @@ document.querySelector("#timSoChan").onclick = function () {
 document.querySelector("#xepTang").onclick = function () {
     arrTongHop = arrTongHop.sort((a, b) => a - b)
 
-    document.querySelector("#kqBtn").innerHTML = `Số chắn cuối cùng là: ${arrTongHop} `;
+    document.querySelector("#kqBtn").innerHTML = `Mảng mới đã xếp: ${arrTongHop} `;
 }
 
 // tìm số nguyên tố đầu tiên
@@ -101,15 +105,17 @@ function ktUocSo(number) {
 document.querySelector("#timSNT").onclick = function () {
     let kq = "Không có số nào"
     for (let item of arrTongHop) {
-        if (item <= 1) {
-            continue
-        } else if (item == 2) {
-            kq = item;
-            break;
-        } else {
-            if (ktUocSo(item)) {
+        if (item - item.toFixed(0) == 0) {
+            if (item <= 1) {
+                continue
+            } else if (item == 2) {
                 kq = item;
-                break
+                break;
+            } else {
+                if (ktUocSo(item)) {
+                    kq = item;
+                    break
+                }
             }
         }
     }
@@ -161,11 +167,11 @@ document.querySelector("#soSanhAmDuong").onclick = function () {
     let kq = ""
     if (soDuong.length > soAm.length) {
         kq = "nhiều hơn"
-    }else if(soDuong.length < soAm.length){
+    } else if (soDuong.length < soAm.length) {
         kq = "ít hơn"
-    }else{
-        kq= "bằng"
+    } else {
+        kq = "bằng"
     }
     document.querySelector("#kqBtn").innerHTML = `Số dương là: ${soDuong.length} ${kq} số âm là: ${soAm.length}`
 
-}
+}   
